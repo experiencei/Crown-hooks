@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { auth } from "../../firebase/firebase.utility";
+// import { auth } from "../../firebase/firebase.utility";
 import { HeaderContainer , LogoContainer , OptionsContainer , OptionLink } from "./header.styled";
 import { ReactComponent as Logo } from "../assests/crown.svg"
 import Carticon from "../cart-icon/cart.icon";

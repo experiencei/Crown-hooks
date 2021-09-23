@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import Forminput from '../forminput/forminput';
 import Custombtn from '../customButton/custombtn';
 // import { auth ,signInWithGoogle } from '../../firebase/firebase.utility';
@@ -10,20 +10,16 @@ import {
     ButtonsBarContainer
   } from './signin.styled'
 
- class Signin extends Component {
-
-    constructor(props) {
-        super(props)
+ const Signin = ({ emailSignInStart, googleSignIn }) => {
+    const [credentials, setCredentials] = useState( {
+        email : ''  ,
+        password : ''
+     }) 
     
-        this.state = {
-           email : ''  ,
-           password : ''
-        }
-    }
-    handleSubmit = async e => {
+     const {email , password} = credentials;
+
+   const handleSubmit = async e => {
      e.preventDefault();
-     const { emailSignInStart } = this.props;
-     const {email , password} = this.state;
      emailSignInStart(email , password);
     //   try {
     //       await auth.signInWithEmailAndPassword( email ,password)
@@ -38,25 +34,20 @@ import {
      
     }
 
-    handleChange = e => {
+  const  handleChange = e => {
     const {name , value} = e.target;
-
-    this.setState({[name] : value})
+   setCredentials({...credentials ,[name] : value})
   }
-
-    render() {
-         const { googleSignIn } = this.props;
-         const {email , password} = this.state;
         return (
         <SigninContainer>
             <SigninTitle>I already have an account</SigninTitle>
             <span>Sign in with your email and password</span>
 
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <Forminput
                     name='email'
                     type='email'
-                    handleChange={this.handleChange}
+                    handleChange={handleChange}
                     value={email}
                     label='email'
                     required
@@ -65,7 +56,7 @@ import {
                     name='password'
                     type='password'
                     value={password}
-                    handleChange={this.handleChange}
+                    handleChange={handleChange}
                     label='password'
                      required  
                    />
@@ -77,7 +68,6 @@ import {
             </SigninContainer>
         )
     }
-}
 
 
 const mapDispatchToProps = dispatch =>( {

@@ -1,4 +1,4 @@
-import React , { Component} from 'react';
+import React , { useEffect} from 'react';
 import { Route } from 'react-router-dom';
 import Shopextent from '../../components/shopext/shopextent';
 import './shoppage.scss';
@@ -16,17 +16,13 @@ const WithSpinnerCollectionpage = WithSpinner(CollectionPage);
 const WithSpinnerShoppage = WithSpinner(Shopextent);
 
 
-class Shoppage extends Component {
+const Shoppage = ({fetchcollectionstart ,match, isCollectionFetching ,CollectionLoading })  => {
     
+   useEffect(() => {
+      fetchcollectionstart()
+       },[fetchcollectionstart])
 
- componentDidMount(){
-    const { fetchcollectionstart } = this.props
-    fetchcollectionstart()
 
- }
-
-   render(){
-      const { match, isCollectionFetching ,CollectionLoading  } = this.props;
    return  (
       <div className="shoppage">
       <Route exact path={`${match.path}`} 
@@ -36,15 +32,13 @@ class Shoppage extends Component {
          </div>
        )
    }
-}
+
 const mapStateToProps = createStructuredSelector({
    isCollectionFetching : selectisCollection,
    CollectionLoading  : SelectisCollectionLoading
 })
 
-// const mapDispatchToProps = dispatch => ({
-//    CollectionMap: collection => dispatch(CollectionMap(collection))
-//  });
+
 const mapDispatchToProps = dispatch => ({
    fetchcollectionstart : () => dispatch(fetchcollectionstart())
  });
@@ -105,3 +99,7 @@ const mapDispatchToProps = dispatch => ({
 //    isCollectionFetching : selectisCollection,
 //    CollectionLoading  : SelectisCollectionLoading
 // })
+
+// const mapDispatchToProps = dispatch => ({
+//    CollectionMap: collection => dispatch(CollectionMap(collection))
+//  });
