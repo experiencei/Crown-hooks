@@ -59,6 +59,7 @@ export function* signUp({payload :{ email , password , displayName}}) {
 export function* signUptoSignIn({payload : {user , additionalData}}){
    yield onUserAuthchange(user , additionalData)
 }
+
 export function* signOut() {
   try {
     yield auth.signOut();
